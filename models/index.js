@@ -1,8 +1,13 @@
 "use strict";
 const Sequelize = require("sequelize");
 let config = require(__dirname + "/../config/config.js");
-console.log(config);
-config = config["development"];
+// console.log(config);
+const env = process.env.NODE_ENV || "development"; // 추가
+// "development", "production", undefined
+console.log("env", env); //
+console.log("NODE_ENV", process.env.NODE_ENV); //
+
+config = config[env]; // "development" > env
 console.log("config", config);
 const db = {};
 
@@ -10,7 +15,7 @@ let sequelize = new Sequelize(
   config.database,
   config.username,
   config.password,
-  config,
+  config
 );
 
 // 설정 정보를 sequelize 라는 key안에 넣어주는 중http://localhost:8080/visitors
